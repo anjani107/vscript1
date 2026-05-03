@@ -31,6 +31,17 @@ class AssetController extends Controller
         return back()->with('success', ucfirst($type) . ' uploaded successfully.');
     }
 
+    public function download(Asset $asset)
+    {
+        $fullPath = \Storage::disk('public')->path($asset->path);
+
+        if (! \Storage::disk('public')->exists($asset->path)) {
+            abort(404, 'File not found.');
+        }
+
+        return response()->download($fullPath, $asset->original_name);
+    }
+
     public function destroy(Asset $asset)
     {
         if (\Storage::disk('public')->exists($asset->path)) {

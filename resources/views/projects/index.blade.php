@@ -48,6 +48,20 @@
                     </span>
                 </div>
 
+                @if ($project->client)
+                    <a href="{{ route('clients.show', $project->client) }}"
+                       class="inline-flex items-center gap-1.5 text-xs text-indigo-400 hover:text-indigo-300 transition w-fit"
+                       onclick="event.stopPropagation()">
+                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
+                        </svg>
+                        {{ $project->client->name }}
+                        @if ($project->client->company)
+                            <span class="text-gray-500">· {{ $project->client->company }}</span>
+                        @endif
+                    </a>
+                @endif
+
                 @if ($project->description)
                     <p class="text-gray-400 text-sm line-clamp-2">{{ $project->description }}</p>
                 @endif

@@ -7,7 +7,17 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class VideoProject extends Model
 {
-    protected $fillable = ['title', 'description', 'status'];
+    protected $fillable = ['user_id', 'client_id', 'title', 'description', 'status'];
+
+    public function user(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    {
+        return $this->belongsTo(\App\Models\User::class);
+    }
+
+    public function client(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    {
+        return $this->belongsTo(Client::class);
+    }
 
     public function scripts(): HasMany
     {
@@ -17,6 +27,11 @@ class VideoProject extends Model
     public function assets(): HasMany
     {
         return $this->hasMany(Asset::class);
+    }
+
+    public function notes(): HasMany
+    {
+        return $this->hasMany(Note::class)->latest();
     }
 
     public function getStatusColorAttribute(): string

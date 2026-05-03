@@ -29,6 +29,27 @@
             @enderror
         </div>
 
+        {{-- Client --}}
+        <div>
+            <label for="client_id" class="block text-sm font-medium text-gray-300 mb-2">Client <span class="text-gray-500">(optional)</span></label>
+            <div class="flex gap-2">
+                <select id="client_id" name="client_id"
+                        class="flex-1 bg-gray-800 border border-gray-700 focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 rounded-lg px-4 py-3 text-white outline-none transition">
+                    <option value="">— No client —</option>
+                    @foreach ($clients as $client)
+                        <option value="{{ $client->id }}"
+                            {{ old('client_id', $project->client_id) == $client->id ? 'selected' : '' }}>
+                            {{ $client->name }}{{ $client->company ? ' — ' . $client->company : '' }}
+                        </option>
+                    @endforeach
+                </select>
+                <a href="{{ route('clients.create') }}"
+                   class="shrink-0 bg-gray-800 hover:bg-gray-700 border border-gray-700 text-gray-400 hover:text-white px-3 py-3 rounded-lg transition text-sm" title="New client">
+                    + Client
+                </a>
+            </div>
+        </div>
+
         <div>
             <label for="description" class="block text-sm font-medium text-gray-300 mb-2">Description <span class="text-gray-500">(optional)</span></label>
             <textarea id="description" name="description" rows="4"
